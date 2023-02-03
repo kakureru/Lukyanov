@@ -1,4 +1,6 @@
 package com.example.lukyanovtinkoff.data.repository
 
-class FilmRepositoryImpl {
+import com.example.lukyanovtinkoff.domain.repository.FilmRepository
+
+class FilmRepositoryImpl : FilmRepository {
 }
