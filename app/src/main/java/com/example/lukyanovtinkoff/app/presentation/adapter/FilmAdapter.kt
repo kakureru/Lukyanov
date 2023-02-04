@@ -1,24 +1,31 @@
 package com.example.lukyanovtinkoff.app.presentation.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.example.lukyanovtinkoff.R
 import com.example.lukyanovtinkoff.databinding.FilmCardLayoutBinding
 import com.example.lukyanovtinkoff.domain.model.Film
 
 class FilmAdapter() : ListAdapter<Film, FilmAdapter.FilmViewHolder>(DiffCallback) {
 
     inner class FilmViewHolder(
+        private val context: Context,
         private var binding: FilmCardLayoutBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(film: Film) {
             binding.apply {
                 titleTextView.text = film.name
-                genreTextView.text = film.genres[0]
+                genreTextView.text = context.resources.getString(
+                    R.string.genre_with_year,
+                    capitalize(film.genres[0]),
+                    film.year
+                )
                 favouriteIcon.isVisible = film.favourite
             }
         }
@@ -26,6 +33,7 @@ class FilmAdapter() : ListAdapter<Film, FilmAdapter.FilmViewHolder>(DiffCallback
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmViewHolder {
         return FilmViewHolder(
+            parent.context,
             FilmCardLayoutBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
@@ -49,4 +57,7 @@ class FilmAdapter() : ListAdapter<Film, FilmAdapter.FilmViewHolder>(DiffCallback
             }
         }
     }
+
+    private fun capitalize(s: String): String =
+        s.substring(0, 1).uppercase() + s.substring(1).lowercase()
 }
