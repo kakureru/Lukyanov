@@ -1,6 +1,7 @@
 package com.example.lukyanovtinkoff.app.presentation.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.lukyanovtinkoff.R
 import com.example.lukyanovtinkoff.app.FilmsApplication
-import com.example.lukyanovtinkoff.app.constants.*
+import com.example.lukyanovtinkoff.app.constants.FILM_ID_KEY
 import com.example.lukyanovtinkoff.app.presentation.adapter.FilmAdapter
 import com.example.lukyanovtinkoff.app.presentation.viewmodel.PopularViewModel
 import com.example.lukyanovtinkoff.app.presentation.viewmodel.PopularViewModelFactory
@@ -37,11 +38,17 @@ class PopularFragment :
         super.onViewCreated(view, savedInstanceState)
         binding.popularFragment = this
 
-        val filmAdapter = FilmAdapter { filmId -> goToAbout(filmId) }
+        val filmAdapter = FilmAdapter(
+            openAbout = { filmId -> goToAbout(filmId) },
+            saveFilm = { film -> viewModel.saveFilm(film) }
+        )
         binding.filmsRecyclerView.adapter = filmAdapter
 
         viewModel.popularFilmsRequestState.collectRequestState(
-            onError = { Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show() },
+            onError = {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
+                Log.d("TAG", it)
+            },
             onSuccess = { filmAdapter.submitList(it) }
         )
     }

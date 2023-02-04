@@ -5,6 +5,7 @@ import com.example.lukyanovtinkoff.app.presentation.viewmodel.FavouritesViewMode
 import com.example.lukyanovtinkoff.app.presentation.viewmodel.PopularViewModelFactory
 import com.example.lukyanovtinkoff.domain.usecase.GetFilmUseCase
 import com.example.lukyanovtinkoff.domain.usecase.GetPopularFilmsUseCase
+import com.example.lukyanovtinkoff.domain.usecase.SaveFilmUseCase
 import dagger.Module
 import dagger.Provides
 
@@ -13,9 +14,11 @@ class AppModule {
 
     @Provides
     fun providePopularViewModelFactory(
-        getPopularFilmsUseCase: GetPopularFilmsUseCase
+        getPopularFilmsUseCase: GetPopularFilmsUseCase,
+        saveFilmUseCase: SaveFilmUseCase
     ): PopularViewModelFactory = PopularViewModelFactory(
-        getPopularFilmsUseCase = getPopularFilmsUseCase
+        getPopularFilmsUseCase = getPopularFilmsUseCase,
+        saveFilmUseCase = saveFilmUseCase
     )
 
     @Provides
