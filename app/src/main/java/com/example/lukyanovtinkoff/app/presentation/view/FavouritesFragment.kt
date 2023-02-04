@@ -1,4 +1,41 @@
 package com.example.lukyanovtinkoff.app.presentation.view
 
-class FavouritesFragment {
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.example.lukyanovtinkoff.R
+import com.example.lukyanovtinkoff.app.FilmsApplication
+import com.example.lukyanovtinkoff.app.presentation.viewmodel.FavouritesViewModel
+import com.example.lukyanovtinkoff.app.presentation.viewmodel.FavouritesViewModelFactory
+import com.example.lukyanovtinkoff.databinding.FragmentFavouritesBinding
+import javax.inject.Inject
+
+class FavouritesFragment :
+    BaseFragment<FavouritesViewModel, FragmentFavouritesBinding>(R.layout.fragment_favourites) {
+
+    @Inject
+    lateinit var viewModelFactory: FavouritesViewModelFactory
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        (activity?.applicationContext as FilmsApplication).appComponent.inject(this)
+        viewModel = ViewModelProvider(this, viewModelFactory)[FavouritesViewModel::class.java]
+        _binding = FragmentFavouritesBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.favouritesFragment = this
+    }
+
+    fun goToPopular() {
+        findNavController().navigate(R.id.action_favouritesFragment_to_popularFragment)
+    }
 }

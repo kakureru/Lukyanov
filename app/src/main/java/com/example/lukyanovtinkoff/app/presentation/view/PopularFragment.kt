@@ -35,6 +35,7 @@ class PopularFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.popularFragment = this
 
         val filmAdapter = FilmAdapter { filmId -> goToAbout(filmId) }
         binding.filmsRecyclerView.adapter = filmAdapter
@@ -48,6 +49,10 @@ class PopularFragment :
     private fun goToAbout(filmId: Int) {
         val bundle = Bundle()
         bundle.putInt(FILM_ID_KEY, filmId)
-        findNavController().navigate(R.id.action_popular_fragment_to_aboutFragment, bundle)
+        findNavController().navigate(R.id.action_popularFragment_to_aboutFragment, bundle)
+    }
+
+    fun goToFavourites() {
+        findNavController().navigate(R.id.action_popularFragment_to_favouritesFragment)
     }
 }

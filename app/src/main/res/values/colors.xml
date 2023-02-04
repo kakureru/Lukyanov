@@ -8,4 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="half_black">#80000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="blue">#0094ff</color>
+    <color name="blue_light">#deefff</color>
 </resources>

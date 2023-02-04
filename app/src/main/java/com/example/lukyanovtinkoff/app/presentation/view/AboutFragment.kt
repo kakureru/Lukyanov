@@ -53,6 +53,6 @@ class AboutFragment :
     }
 
     fun goBack() {
-        findNavController().navigate(R.id.action_aboutFragment_to_popular_fragment)
+        findNavController().navigate(R.id.action_aboutFragment_to_popularFragment)
     }
 }

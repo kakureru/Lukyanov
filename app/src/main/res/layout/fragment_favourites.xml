@@ -1,31 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
+    <data>
+
+        <variable
+            name="favouritesFragment"
+            type="com.example.lukyanovtinkoff.app.presentation.view.FavouritesFragment" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/title_text_view"
             style="@style/section_title"
-            android:layout_toStartOf="@+id/search_btn"
-            android:text="@string/favourites" />
+            android:text="@string/favourites"
+            app:layout_constraintEnd_toStartOf="@id/search_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/search_btn"
-            android:layout_alignParentEnd="true"
-            style="@style/search_btn" />
+            style="@style/search_btn"
+            app:layout_constraintBottom_toBottomOf="@+id/title_text_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/title_text_view" />
 
-    </RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/films_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/title_text_view"
+            tools:listitem="@layout/film_card_layout" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/films_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:listitem="@layout/film_card_layout" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/popular_btn"
+            style="@style/section_btn_inactive"
+            android:onClick="@{() -> favouritesFragment.goToPopular()}"
+            android:text="@string/popular"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/favourites_btn"
+            app:layout_constraintStart_toStartOf="parent" />
 
-</LinearLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/favourites_btn"
+            style="@style/section_btn_active"
+            android:layout_marginEnd="16dp"
+            android:text="@string/favourites"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/popular_btn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

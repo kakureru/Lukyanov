@@ -11,8 +11,24 @@
         android:label="PopularFragment"
         tools:layout="@layout/fragment_popular">
         <action
-            android:id="@+id/action_popular_fragment_to_aboutFragment"
+            android:id="@+id/action_popularFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_popularFragment_to_favouritesFragment"
+            app:destination="@id/favouritesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favouritesFragment"
+        android:name="com.example.lukyanovtinkoff.app.presentation.view.FavouritesFragment"
+        android:label="FavouritesFragment"
+        tools:layout="@layout/fragment_favourites">
+        <action
+            android:id="@+id/action_favouritesFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+        <action
+            android:id="@+id/action_favouritesFragment_to_popularFragment"
+            app:destination="@id/popularFragment"/>
     </fragment>
 
     <fragment
@@ -21,9 +37,14 @@
         android:label="AboutFragment"
         tools:layout="@layout/fragment_about">
         <action
-            android:id="@+id/action_aboutFragment_to_popular_fragment"
+            android:id="@+id/action_aboutFragment_to_popularFragment"
             app:destination="@id/popularFragment"
             app:popUpTo="@id/popularFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_aboutFragment_to_favouritesFragment"
+            app:destination="@id/favouritesFragment"
+            app:popUpTo="@id/favouritesFragment"
             app:popUpToInclusive="true" />
     </fragment>
 

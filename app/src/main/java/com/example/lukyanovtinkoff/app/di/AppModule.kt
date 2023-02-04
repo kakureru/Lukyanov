@@ -1,6 +1,7 @@
 package com.example.lukyanovtinkoff.app.di
 
 import com.example.lukyanovtinkoff.app.presentation.viewmodel.AboutViewModelFactory
+import com.example.lukyanovtinkoff.app.presentation.viewmodel.FavouritesViewModelFactory
 import com.example.lukyanovtinkoff.app.presentation.viewmodel.PopularViewModelFactory
 import com.example.lukyanovtinkoff.domain.usecase.GetFilmUseCase
 import com.example.lukyanovtinkoff.domain.usecase.GetPopularFilmsUseCase
@@ -22,5 +23,12 @@ class AppModule {
         getFilmUseCase: GetFilmUseCase
     ): AboutViewModelFactory = AboutViewModelFactory(
         getFilmUseCase = getFilmUseCase
+    )
+
+    @Provides
+    fun provideFavouritesViewModelFactory(
+
+    ): FavouritesViewModelFactory = FavouritesViewModelFactory(
+
     )
 }
