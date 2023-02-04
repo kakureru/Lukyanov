@@ -6,7 +6,7 @@ import androidx.room.TypeConverters
 import com.example.lukyanovtinkoff.data.db.Converters
 import com.example.lukyanovtinkoff.domain.model.Film
 
-@Entity
+@Entity(tableName = "films")
 @TypeConverters(Converters::class)
 data class FilmEntity(
     @PrimaryKey(autoGenerate = false) val id: Int,

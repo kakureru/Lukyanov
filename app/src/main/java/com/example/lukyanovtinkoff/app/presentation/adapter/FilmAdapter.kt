@@ -12,8 +12,8 @@ import com.example.lukyanovtinkoff.databinding.FilmCardLayoutBinding
 import com.example.lukyanovtinkoff.domain.model.Film
 
 class FilmAdapter(
-    private val openAbout: (filmId: Int) -> Unit,
-    private val saveFilm: (film: Film) -> Unit
+    private val onClick: (filmId: Int) -> Unit,
+    private val onLongClick: (film: Film) -> Unit
 ) : ListAdapter<Film, FilmAdapter.FilmViewHolder>(DiffCallback) {
 
     inner class FilmViewHolder(
@@ -22,9 +22,9 @@ class FilmAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.root.setOnClickListener { openAbout(getItem(adapterPosition).id) }
+            binding.root.setOnClickListener { onClick(getItem(adapterPosition).id) }
             binding.root.setOnLongClickListener {
-                saveFilm(getItem(adapterPosition))
+                onLongClick(getItem(adapterPosition))
                 true
             }
         }

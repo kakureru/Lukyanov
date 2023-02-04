@@ -39,8 +39,8 @@ class PopularFragment :
         binding.popularFragment = this
 
         val filmAdapter = FilmAdapter(
-            openAbout = { filmId -> goToAbout(filmId) },
-            saveFilm = { film -> viewModel.saveFilm(film) }
+            onClick = { filmId -> goToAbout(filmId) },
+            onLongClick = { film -> viewModel.saveFilm(film) }
         )
         binding.filmsRecyclerView.adapter = filmAdapter
 

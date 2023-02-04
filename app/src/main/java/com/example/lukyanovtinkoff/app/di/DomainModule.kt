@@ -1,6 +1,7 @@
 package com.example.lukyanovtinkoff.app.di
 
 import com.example.lukyanovtinkoff.domain.repository.FilmRepository
+import com.example.lukyanovtinkoff.domain.usecase.GetFavouriteFilmsUseCase
 import com.example.lukyanovtinkoff.domain.usecase.GetFilmUseCase
 import com.example.lukyanovtinkoff.domain.usecase.GetPopularFilmsUseCase
 import com.example.lukyanovtinkoff.domain.usecase.SaveFilmUseCase
@@ -21,4 +22,8 @@ class DomainModule {
     @Provides
     fun provideSaveFilmUseCase(filmRepository: FilmRepository): SaveFilmUseCase =
         SaveFilmUseCase(filmRepository = filmRepository)
+
+    @Provides
+    fun provideGetFavouriteFilmsUseCase(filmRepository: FilmRepository): GetFavouriteFilmsUseCase =
+        GetFavouriteFilmsUseCase(filmRepository = filmRepository)
 }
