@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/popular_fragment"
-        android:name="com.example.lukyanovtinkoff.app.presentation.PopularFragment"
+        android:name="com.example.lukyanovtinkoff.app.presentation.view.PopularFragment"
         tools:layout="@layout/fragment_popular"/>
 
 </navigation>

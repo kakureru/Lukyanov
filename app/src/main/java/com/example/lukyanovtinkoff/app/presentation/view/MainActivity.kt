@@ -1,4 +1,4 @@
-package com.example.lukyanovtinkoff.app.presentation
+package com.example.lukyanovtinkoff.app.presentation.view
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
