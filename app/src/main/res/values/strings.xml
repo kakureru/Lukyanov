@@ -4,4 +4,6 @@
     <string name="favourites">Избранное</string>
     <string name="search">Поиск</string>
     <string name="genre_with_year">%1$s (%2$d)</string>
+    <string name="genres">Жанры:\u00A0</string>
+    <string name="countries">Страны:\u00A0</string>
 </resources>

@@ -1,7 +1,6 @@
 package com.example.lukyanovtinkoff.app.presentation.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.lukyanovtinkoff.R
 import com.example.lukyanovtinkoff.app.FilmsApplication
+import com.example.lukyanovtinkoff.app.constants.*
 import com.example.lukyanovtinkoff.app.presentation.adapter.FilmAdapter
 import com.example.lukyanovtinkoff.app.presentation.viewmodel.PopularViewModel
 import com.example.lukyanovtinkoff.app.presentation.viewmodel.PopularViewModelFactory
@@ -46,6 +46,8 @@ class PopularFragment :
     }
 
     private fun goToAbout(filmId: Int) {
-        findNavController().navigate(R.id.action_popular_fragment_to_aboutFragment)
+        val bundle = Bundle()
+        bundle.putInt(FILM_ID_KEY, filmId)
+        findNavController().navigate(R.id.action_popular_fragment_to_aboutFragment, bundle)
     }
 }
