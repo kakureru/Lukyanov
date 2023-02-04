@@ -3,11 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/popular_fragment">
+    app:startDestination="@id/popularFragment">
 
     <fragment
-        android:id="@+id/popular_fragment"
+        android:id="@+id/popularFragment"
         android:name="com.example.lukyanovtinkoff.app.presentation.view.PopularFragment"
-        tools:layout="@layout/fragment_popular"/>
+        android:label="PopularFragment"
+        tools:layout="@layout/fragment_popular">
+        <action
+            android:id="@+id/action_popular_fragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.lukyanovtinkoff.app.presentation.view.AboutFragment"
+        android:label="AboutFragment"
+        tools:layout="@layout/fragment_about">
+        <action
+            android:id="@+id/action_aboutFragment_to_popular_fragment"
+            app:destination="@id/popularFragment"
+            app:popUpTo="@id/popularFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 </navigation>

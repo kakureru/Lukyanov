@@ -1,5 +1,6 @@
 package com.example.lukyanovtinkoff.app.di
 
+import com.example.lukyanovtinkoff.app.presentation.viewmodel.AboutViewModelFactory
 import com.example.lukyanovtinkoff.app.presentation.viewmodel.PopularViewModelFactory
 import com.example.lukyanovtinkoff.domain.usecase.GetPopularFilmsUseCase
 import dagger.Module
@@ -14,4 +15,7 @@ class AppModule {
     ): PopularViewModelFactory = PopularViewModelFactory(
         getPopularFilmsUseCase = getPopularFilmsUseCase
     )
+
+    @Provides
+    fun provideAboutViewModelFactory(): AboutViewModelFactory = AboutViewModelFactory()
 }

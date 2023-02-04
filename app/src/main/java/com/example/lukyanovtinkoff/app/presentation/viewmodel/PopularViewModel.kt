@@ -9,15 +9,16 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
 class PopularViewModel(
-    private val getPopularFilmsUseCase: GetPopularFilmsUseCase
+    getPopularFilmsUseCase: GetPopularFilmsUseCase
 ) : BaseViewModel() {
 
     private val _popularFilmsRequestState =
         MutableStateFlow<RequestState<List<Film>>>(RequestState.Idle())
     val popularFilmsRequestState = _popularFilmsRequestState.asStateFlow()
 
-    fun getPopularFilms() =
+    init {
         getPopularFilmsUseCase.invoke().collectRequest(_popularFilmsRequestState)
+    }
 }
 
 @Suppress("UNCHECKED_CAST")

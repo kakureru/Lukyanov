@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.lukyanovtinkoff.R
 import com.example.lukyanovtinkoff.app.FilmsApplication
 import com.example.lukyanovtinkoff.app.presentation.adapter.FilmAdapter
@@ -20,10 +21,6 @@ class PopularFragment :
 
     @Inject
     lateinit var viewModelFactory: PopularViewModelFactory
-    override lateinit var viewModel: PopularViewModel
-
-    private var _binding: FragmentPopularBinding? = null
-    override val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,19 +36,16 @@ class PopularFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val filmAdapter = FilmAdapter()
+        val filmAdapter = FilmAdapter { filmId -> goToAbout(filmId) }
         binding.filmsRecyclerView.adapter = filmAdapter
 
-        viewModel.getPopularFilms()
-
         viewModel.popularFilmsRequestState.collectRequestState(
-            onError = {
-                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
-                Log.d("TAG", it)
-            },
-            onSuccess = {
-                filmAdapter.submitList(it)
-            }
+            onError = { Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show() },
+            onSuccess = { filmAdapter.submitList(it) }
         )
+    }
+
+    private fun goToAbout(filmId: Int) {
+        findNavController().navigate(R.id.action_popular_fragment_to_aboutFragment)
     }
 }

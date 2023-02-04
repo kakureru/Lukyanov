@@ -11,12 +11,18 @@ import com.example.lukyanovtinkoff.R
 import com.example.lukyanovtinkoff.databinding.FilmCardLayoutBinding
 import com.example.lukyanovtinkoff.domain.model.Film
 
-class FilmAdapter() : ListAdapter<Film, FilmAdapter.FilmViewHolder>(DiffCallback) {
+class FilmAdapter(
+    private val openAbout: (filmId: Int) -> Unit
+) : ListAdapter<Film, FilmAdapter.FilmViewHolder>(DiffCallback) {
 
     inner class FilmViewHolder(
         private val context: Context,
         private var binding: FilmCardLayoutBinding
     ) : RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.root.setOnClickListener { openAbout(getItem(adapterPosition).id) }
+        }
 
         fun bind(film: Film) {
             binding.apply {

@@ -7,15 +7,19 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewbinding.ViewBinding
+import com.example.lukyanovtinkoff.app.presentation.viewmodel.AboutViewModelFactory
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 abstract class BaseFragment<ViewModel : androidx.lifecycle.ViewModel, Binding : ViewBinding>(
     @LayoutRes layoutId: Int
 ) : Fragment(layoutId) {
 
-    protected abstract val viewModel: ViewModel
-    protected abstract val binding: Binding
+    protected lateinit var viewModel: ViewModel
+
+    protected var _binding: Binding? = null
+    protected val binding: Binding get() = _binding!!
 
     /**
      * Collect flow safely with [repeatOnLifecycle] API
