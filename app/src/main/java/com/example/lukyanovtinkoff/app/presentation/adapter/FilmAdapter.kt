@@ -1,8 +1,11 @@
 package com.example.lukyanovtinkoff.app.presentation.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -15,7 +18,10 @@ import com.example.lukyanovtinkoff.domain.model.Film
 class FilmAdapter(
     private val onClick: (filmId: Int) -> Unit,
     private val onLongClick: (film: Film) -> Unit
-) : ListAdapter<Film, FilmAdapter.FilmViewHolder>(DiffCallback) {
+) : ListAdapter<Film, FilmAdapter.FilmViewHolder>(DiffCallback), Filterable {
+
+    var filmList: ArrayList<Film> = ArrayList()
+    var filmListFiltered: ArrayList<Film> = ArrayList()
 
     inner class FilmViewHolder(
         private val context: Context,
@@ -62,6 +68,41 @@ class FilmAdapter(
 
     override fun onBindViewHolder(holder: FilmViewHolder, position: Int) {
         holder.bind(getItem(position))
+    }
+
+    fun addData(list: List<Film>) {
+        filmList = list as ArrayList<Film>
+        filmListFiltered = filmList
+        submitList(filmListFiltered)
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val charString = constraint?.toString() ?: ""
+                Log.d("TAG", charString)
+                filmListFiltered =
+                    if (charString.isEmpty())
+                        filmList
+                    else {
+                        val filteredList = ArrayList<Film>()
+                        filmList.filter {
+                            it.name.lowercase().contains(constraint.toString().lowercase())
+                        }.forEach { filteredList.add(it) }
+                        filteredList
+                    }
+                return FilterResults().apply { values = filmListFiltered }
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                filmListFiltered =
+                    if (results?.values == null)
+                        ArrayList()
+                    else
+                        results.values as ArrayList<Film>
+                submitList(filmListFiltered)
+            }
+        }
     }
 
     companion object {

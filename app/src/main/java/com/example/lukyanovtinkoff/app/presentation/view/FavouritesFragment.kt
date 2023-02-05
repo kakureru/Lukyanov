@@ -1,10 +1,11 @@
 package com.example.lukyanovtinkoff.app.presentation.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.lukyanovtinkoff.R
@@ -21,6 +22,7 @@ class FavouritesFragment :
 
     @Inject
     lateinit var viewModelFactory: FavouritesViewModelFactory
+    private lateinit var filmAdapter: FilmAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,6 +33,7 @@ class FavouritesFragment :
         viewModel = ViewModelProvider(this, viewModelFactory)[FavouritesViewModel::class.java]
         _binding = FragmentFavouritesBinding.inflate(inflater, container, false)
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.favourites)
+//        (requireActivity() as MenuHost).addMenuProvider(menuProvider, viewLifecycleOwner)
         return binding.root
     }
 
@@ -38,7 +41,7 @@ class FavouritesFragment :
         super.onViewCreated(view, savedInstanceState)
         binding.favouritesFragment = this
 
-        val filmAdapter = FilmAdapter(
+        filmAdapter = FilmAdapter(
             onClick = { filmId -> goToAbout(filmId) },
             onLongClick = { film -> viewModel.onLongClick(film) }
         )
@@ -47,6 +50,37 @@ class FavouritesFragment :
         viewModel.favouriteFilms.observe(viewLifecycleOwner) {
             filmAdapter.submitList(it)
         }
+    }
+
+    private val menuProvider = object : MenuProvider {
+        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            menuInflater.inflate(R.menu.action_bar, menu)
+            val searchAction = menu.findItem(R.id.action_search)
+            val searchView = searchAction?.actionView as SearchView
+
+            val searchAutoComplete: SearchView.SearchAutoComplete =
+                searchView.findViewById(androidx.appcompat.R.id.search_src_text)
+            searchAutoComplete.setHintTextColor(resources.getColor(R.color.half_black))
+
+            searchView.setOnQueryTextListener(onQueryTextListener)
+        }
+
+        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+            return false
+        }
+
+    }
+
+    private val onQueryTextListener = object : SearchView.OnQueryTextListener {
+        override fun onQueryTextSubmit(p0: String?): Boolean {
+            return false
+        }
+
+        override fun onQueryTextChange(text: String?): Boolean {
+            filmAdapter.filter.filter(text)
+            return false
+        }
+
     }
 
     private fun goToAbout(filmId: Int) {
