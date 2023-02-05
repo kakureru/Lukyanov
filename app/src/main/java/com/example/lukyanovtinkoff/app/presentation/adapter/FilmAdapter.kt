@@ -7,6 +7,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.lukyanovtinkoff.R
 import com.example.lukyanovtinkoff.databinding.FilmCardLayoutBinding
 import com.example.lukyanovtinkoff.domain.model.Film
@@ -38,6 +39,9 @@ class FilmAdapter(
                     film.year
                 )
                 favouriteIcon.isVisible = film.favourite
+                Glide.with(context)
+                    .load(film.posterUrlPreview)
+                    .into(posterPreview)
             }
         }
     }

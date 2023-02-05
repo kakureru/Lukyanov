@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.example.lukyanovtinkoff.R
 import com.example.lukyanovtinkoff.app.FilmsApplication
 import com.example.lukyanovtinkoff.app.constants.FILM_ID_KEY
@@ -28,6 +30,7 @@ class AboutFragment :
         savedInstanceState: Bundle?
     ): View? {
         (activity?.applicationContext as FilmsApplication).appComponent.inject(this)
+        activity?.let { WindowCompat.setDecorFitsSystemWindows(it.window, false) }
         viewModel = ViewModelProvider(this, viewModelFactory)[AboutViewModel::class.java]
         _binding = FragmentAboutBinding.inflate(inflater, container, false)
         arguments?.let { viewModel.getFilm(it.getInt(FILM_ID_KEY)) }
@@ -47,9 +50,17 @@ class AboutFragment :
                     descriptionTextView.text = it.description
                     genresTextView.text = it.genres.joinToString()
                     countriesTextView.text = it.countries.joinToString()
+                    Glide.with(requireContext())
+                        .load(it.posterUrl)
+                        .into(poster)
                 }
             }
         )
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        activity?.let { WindowCompat.setDecorFitsSystemWindows(it.window, true) }
     }
 
     fun goBack() {
