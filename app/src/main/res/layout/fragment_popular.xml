@@ -9,6 +9,10 @@
             name="popularFragment"
             type="com.example.lukyanovtinkoff.app.presentation.view.PopularFragment" />
 
+        <variable
+            name="popularViewModel"
+            type="com.example.lukyanovtinkoff.app.presentation.viewmodel.PopularViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,6 +34,51 @@
             app:layout_constraintBottom_toBottomOf="@+id/title_text_view"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/title_text_view" />
+
+        <RelativeLayout
+            android:id="@+id/error_view_group"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/error_text_view"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_cloud_off" />
+
+            <TextView
+                android:id="@+id/error_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="@string/network_error"
+                android:textColor="?attr/colorOnSecondary" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/try_again_btn"
+                style="@style/section_btn_active"
+                android:layout_width="120dp"
+                android:layout_below="@id/error_text_view"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="20dp"
+                android:onClick="@{() -> popularViewModel.loadFilms()}"
+                android:text="@string/action_repeat" />
+
+        </RelativeLayout>
+
+        <ProgressBar
+            android:id="@+id/loader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateTint="?attr/colorPrimary"
+            android:indeterminateTintMode="src_atop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/films_recycler_view"

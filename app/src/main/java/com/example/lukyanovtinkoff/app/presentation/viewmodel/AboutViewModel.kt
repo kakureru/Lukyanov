@@ -15,7 +15,13 @@ class AboutViewModel(
     private val _getFilmRequestState = MutableStateFlow<RequestState<Film>>(RequestState.Idle())
     val getFilmRequestState = _getFilmRequestState.asStateFlow()
 
-    fun getFilm(filmId: Int) = getFilmUseCase.invoke(filmId).collectRequest(_getFilmRequestState)
+    private var filmId = 0
+
+    fun setFilmId(id: Int) {
+        filmId = id
+    }
+
+    fun getFilm() = getFilmUseCase.invoke(filmId).collectRequest(_getFilmRequestState)
 }
 
 @Suppress("UNCHECKED_CAST")

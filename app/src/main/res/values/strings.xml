@@ -6,4 +6,10 @@
     <string name="genre_with_year">%1$s (%2$d)</string>
     <string name="genres">Жанры:\u00A0</string>
     <string name="countries">Страны:\u00A0</string>
+
+    <!--  Errors  -->
+    <string name="network_error">Произошла ошибка при загрузке данных, проверьте подключение к сети</string>
+
+    <!--  Actions  -->
+    <string name="action_repeat">Повторить</string>
 </resources>

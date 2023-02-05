@@ -1,16 +1,16 @@
 package com.example.lukyanovtinkoff.app.presentation.view
 
-import com.example.lukyanovtinkoff.app.presentation.utils.RequestState
+import android.view.View
 import androidx.annotation.LayoutRes
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.viewbinding.ViewBinding
-import com.example.lukyanovtinkoff.app.presentation.viewmodel.AboutViewModelFactory
+import com.example.lukyanovtinkoff.app.presentation.utils.RequestState
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 abstract class BaseFragment<ViewModel : androidx.lifecycle.ViewModel, Binding : ViewBinding>(
     @LayoutRes layoutId: Int
@@ -57,6 +57,40 @@ abstract class BaseFragment<ViewModel : androidx.lifecycle.ViewModel, Binding : 
                     is RequestState.Success -> onSuccess.invoke(it.data)
                 }
             }
+        }
+    }
+
+    /**
+     * Setup views visibility depending on [UIState] states.
+     * @param isNavigateWhenSuccess is responsible for displaying views depending on whether
+     * to navigate further or stay this Fragment
+     */
+    protected fun <T> RequestState<T>.setupViewVisibility(
+        content: View, loader: View, error: View? = null
+    ) {
+        fun showLoading() {
+            content.isVisible = false
+            loader.isVisible = true
+            error?.isVisible = false
+        }
+
+        fun showError() {
+            content.isVisible = false
+            loader.isVisible = false
+            error?.isVisible = true
+        }
+
+        fun showContent() {
+            content.isVisible = true
+            loader.isVisible = false
+            error?.isVisible = false
+        }
+
+        when (this) {
+            is RequestState.Idle -> {}
+            is RequestState.Loading -> showLoading()
+            is RequestState.Error -> showError()
+            is RequestState.Success -> showContent()
         }
     }
 }

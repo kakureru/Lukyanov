@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -8,26 +9,54 @@
             name="aboutFragment"
             type="com.example.lukyanovtinkoff.app.presentation.view.AboutFragment" />
 
+        <variable
+            name="aboutViewModel"
+            type="com.example.lukyanovtinkoff.app.presentation.viewmodel.AboutViewModel" />
+
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <ScrollView
+            android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="80dp"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/poster"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/poster"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:minHeight="450dp"
+                        android:scaleType="center"
+                        tools:srcCompat="@tools:sample/avatars" />
+
+                    <ProgressBar
+                        android:id="@+id/img_loader"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:indeterminate="true"
+                        android:indeterminateTint="?attr/colorPrimary"
+                        android:indeterminateTintMode="src_atop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/title_text_view"
@@ -72,7 +101,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/about_margin"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="50dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -94,6 +122,49 @@
             </LinearLayout>
 
         </ScrollView>
+
+        <RelativeLayout
+            android:id="@+id/error_view_group"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/error_text_view"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_cloud_off" />
+
+            <TextView
+                android:id="@+id/error_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="@string/network_error"
+                android:textColor="?attr/colorOnSecondary" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/try_again_btn"
+                style="@style/section_btn_active"
+                android:layout_width="120dp"
+                android:layout_below="@id/error_text_view"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="20dp"
+                android:onClick="@{() -> aboutViewModel.getFilm()}"
+                android:text="@string/action_repeat" />
+
+        </RelativeLayout>
+
+        <ProgressBar
+            android:id="@+id/loader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"
+            android:indeterminateTint="?attr/colorPrimary"
+            android:indeterminateTintMode="src_atop"
+            android:visibility="invisible" />
 
         <ImageButton
             android:id="@+id/back_btn"

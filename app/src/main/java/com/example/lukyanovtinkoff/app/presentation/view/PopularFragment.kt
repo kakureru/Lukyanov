@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.lukyanovtinkoff.R
 import com.example.lukyanovtinkoff.app.FilmsApplication
 import com.example.lukyanovtinkoff.app.constants.FILM_ID_KEY
 import com.example.lukyanovtinkoff.app.presentation.adapter.FilmAdapter
+import com.example.lukyanovtinkoff.app.presentation.utils.RequestState
 import com.example.lukyanovtinkoff.app.presentation.viewmodel.PopularViewModel
 import com.example.lukyanovtinkoff.app.presentation.viewmodel.PopularViewModelFactory
 import com.example.lukyanovtinkoff.databinding.FragmentPopularBinding
@@ -36,7 +38,10 @@ class PopularFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.popularFragment = this
+        binding.apply {
+            popularFragment = this@PopularFragment
+            popularViewModel = viewModel
+        }
 
         val filmAdapter = FilmAdapter(
             onClick = { filmId -> goToAbout(filmId) },
@@ -45,11 +50,13 @@ class PopularFragment :
         binding.filmsRecyclerView.adapter = filmAdapter
 
         viewModel.popularFilmsRequestState.collectRequestState(
-            onError = {
-                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show()
-                Log.d("TAG", it)
-            },
-            onSuccess = { filmAdapter.submitList(it) }
+            onError = { Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show() },
+            onSuccess = { filmAdapter.submitList(it) },
+            state = {
+                binding.apply {
+                    it.setupViewVisibility(filmsRecyclerView, loader, errorViewGroup)
+                }
+            }
         )
     }
 

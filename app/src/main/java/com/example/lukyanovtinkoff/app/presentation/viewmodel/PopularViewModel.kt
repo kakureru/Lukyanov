@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class PopularViewModel(
-    getPopularFilmsUseCase: GetPopularFilmsUseCase,
+    private val getPopularFilmsUseCase: GetPopularFilmsUseCase,
     private val saveFilmUseCase: SaveFilmUseCase,
     private val deleteFilmUseCase: DeleteFilmUseCase
 ) : BaseViewModel() {
@@ -23,6 +23,10 @@ class PopularViewModel(
     val popularFilmsRequestState = _popularFilmsRequestState.asStateFlow()
 
     init {
+        loadFilms()
+    }
+
+    fun loadFilms() {
         getPopularFilmsUseCase.invoke().collectRequest(_popularFilmsRequestState)
     }
 
