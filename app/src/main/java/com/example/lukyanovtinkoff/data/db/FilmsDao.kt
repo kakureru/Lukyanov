@@ -13,6 +13,12 @@ interface FilmsDao {
     @Query("SELECT * FROM films")
     fun getAll(): Flow<List<FilmEntity>>
 
+    @Query("SELECT EXISTS(SELECT * FROM films WHERE id = :filmId)")
+    suspend fun isFilmSaved(filmId : Int) : Boolean
+
+    @Query("SELECT * FROM films WHERE id = :filmId")
+    suspend fun getFilm(filmId: Int): FilmEntity
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun saveFilm(filmEntity: FilmEntity)
 }

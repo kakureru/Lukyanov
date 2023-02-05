@@ -26,8 +26,12 @@ class FilmRepositoryImpl(
     }
 
     override fun getFilm(filmId: Int): Flow<Either<String, Film>> = doRequest {
-        filmsApi.getFilm(filmId).toDomain()
+        if (filmsDao.isFilmSaved(filmId))
+            filmsDao.getFilm(filmId).toDomain()
+        else
+            filmsApi.getFilm(filmId).toDomain()
     }
+
 
     override suspend fun saveFilm(film: Film) {
         // First save film without description
@@ -52,5 +56,4 @@ class FilmRepositoryImpl(
         genres = film.genres,
         favourite = true
     )
-
 }
