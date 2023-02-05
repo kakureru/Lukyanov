@@ -28,5 +28,6 @@ fun FilmEntity.toDomain() = Film(
     description = description,
     year = year,
     countries = countries,
-    genres = genres
+    genres = genres,
+    favourite = favourite
 )

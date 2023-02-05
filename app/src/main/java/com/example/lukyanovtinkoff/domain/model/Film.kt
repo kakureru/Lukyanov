@@ -9,5 +9,5 @@ data class Film(
     val genres: List<String>,
     val posterUrl: String,
     val posterUrlPreview: String,
-    val favourite: Boolean = false
+    var favourite: Boolean = false
 )

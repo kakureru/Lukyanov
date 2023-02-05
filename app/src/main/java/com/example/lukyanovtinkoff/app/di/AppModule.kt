@@ -3,10 +3,7 @@ package com.example.lukyanovtinkoff.app.di
 import com.example.lukyanovtinkoff.app.presentation.viewmodel.AboutViewModelFactory
 import com.example.lukyanovtinkoff.app.presentation.viewmodel.FavouritesViewModelFactory
 import com.example.lukyanovtinkoff.app.presentation.viewmodel.PopularViewModelFactory
-import com.example.lukyanovtinkoff.domain.usecase.GetFavouriteFilmsUseCase
-import com.example.lukyanovtinkoff.domain.usecase.GetFilmUseCase
-import com.example.lukyanovtinkoff.domain.usecase.GetPopularFilmsUseCase
-import com.example.lukyanovtinkoff.domain.usecase.SaveFilmUseCase
+import com.example.lukyanovtinkoff.domain.usecase.*
 import dagger.Module
 import dagger.Provides
 
@@ -16,10 +13,12 @@ class AppModule {
     @Provides
     fun providePopularViewModelFactory(
         getPopularFilmsUseCase: GetPopularFilmsUseCase,
-        saveFilmUseCase: SaveFilmUseCase
+        saveFilmUseCase: SaveFilmUseCase,
+        deleteFilmUseCase: DeleteFilmUseCase
     ): PopularViewModelFactory = PopularViewModelFactory(
         getPopularFilmsUseCase = getPopularFilmsUseCase,
-        saveFilmUseCase = saveFilmUseCase
+        saveFilmUseCase = saveFilmUseCase,
+        deleteFilmUseCase = deleteFilmUseCase
     )
 
     @Provides
@@ -31,8 +30,12 @@ class AppModule {
 
     @Provides
     fun provideFavouritesViewModelFactory(
-        getFavouriteFilmsUseCase: GetFavouriteFilmsUseCase
+        getFavouriteFilmsUseCase: GetFavouriteFilmsUseCase,
+        saveFilmUseCase: SaveFilmUseCase,
+        deleteFilmUseCase: DeleteFilmUseCase
     ): FavouritesViewModelFactory = FavouritesViewModelFactory(
-        getFavouriteFilmsUseCase = getFavouriteFilmsUseCase
+        getFavouriteFilmsUseCase = getFavouriteFilmsUseCase,
+        saveFilmUseCase = saveFilmUseCase,
+        deleteFilmUseCase = deleteFilmUseCase
     )
 }

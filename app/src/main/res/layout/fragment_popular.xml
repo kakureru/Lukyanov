@@ -33,10 +33,11 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/films_recycler_view"
+            style="@style/films_recycler_view"
             android:layout_width="match_parent"
+            android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/title_text_view"
             tools:listitem="@layout/film_card_layout" />
 

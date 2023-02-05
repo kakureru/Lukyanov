@@ -23,10 +23,13 @@ class FilmAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.root.setOnClickListener { onClick(getItem(adapterPosition).id) }
-            binding.root.setOnLongClickListener {
-                onLongClick(getItem(adapterPosition))
-                true
+            binding.apply {
+                root.setOnClickListener { onClick(getItem(adapterPosition).id) }
+                root.setOnLongClickListener {
+                    onLongClick(getItem(adapterPosition))
+                    favouriteIcon.isVisible = !binding.favouriteIcon.isVisible
+                    true
+                }
             }
         }
 

@@ -18,7 +18,11 @@ class FilmRepositoryImpl(
 ) : BaseRepository(), FilmRepository {
 
     override val popularFilms: Flow<Either<String, List<Film>>> = doRequest {
-        filmsApi.getPopular().toDomain()
+        val savedFilms = filmsDao.getAllIds()
+        filmsApi.getPopular().toDomain().map {
+            it.favourite = savedFilms.contains(it.id)
+            it
+        }
     }
 
     override val favouriteFilms = filmsDao.getAll().map { films ->
@@ -43,6 +47,10 @@ class FilmRepositoryImpl(
                 is Either.Right -> filmsDao.saveFilm(toData(it.value))
             }
         }
+    }
+
+    override suspend fun deleteFilm(film: Film) {
+        filmsDao.deleteFilm(toData(film))
     }
 
     private fun toData(film: Film) = FilmEntity(

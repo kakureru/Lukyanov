@@ -38,7 +38,7 @@ class FavouritesFragment :
 
         val filmAdapter = FilmAdapter(
             onClick = { filmId -> goToAbout(filmId) },
-            onLongClick = { film -> viewModel.removeFromFavourites(film) }
+            onLongClick = { film -> viewModel.onLongClick(film) }
         )
         binding.filmsRecyclerView.adapter = filmAdapter
 

@@ -13,4 +13,6 @@ interface FilmRepository {
     fun getFilm(filmId: Int): Flow<Either<String, Film>>
 
     suspend fun saveFilm(film: Film)
+
+    suspend fun deleteFilm(film: Film)
 }

@@ -1,10 +1,7 @@
 package com.example.lukyanovtinkoff.app.di
 
 import com.example.lukyanovtinkoff.domain.repository.FilmRepository
-import com.example.lukyanovtinkoff.domain.usecase.GetFavouriteFilmsUseCase
-import com.example.lukyanovtinkoff.domain.usecase.GetFilmUseCase
-import com.example.lukyanovtinkoff.domain.usecase.GetPopularFilmsUseCase
-import com.example.lukyanovtinkoff.domain.usecase.SaveFilmUseCase
+import com.example.lukyanovtinkoff.domain.usecase.*
 import dagger.Module
 import dagger.Provides
 
@@ -26,4 +23,8 @@ class DomainModule {
     @Provides
     fun provideGetFavouriteFilmsUseCase(filmRepository: FilmRepository): GetFavouriteFilmsUseCase =
         GetFavouriteFilmsUseCase(filmRepository = filmRepository)
+
+    @Provides
+    fun provideDeleteFilmUseCase(filmRepository: FilmRepository): DeleteFilmUseCase =
+        DeleteFilmUseCase(filmRepository = filmRepository)
 }
