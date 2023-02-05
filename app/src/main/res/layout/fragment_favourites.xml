@@ -15,21 +15,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/title_text_view"
-            style="@style/section_title"
-            android:text="@string/favourites"
-            app:layout_constraintEnd_toStartOf="@id/search_btn"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/search_btn"
-            style="@style/search_btn"
-            app:layout_constraintBottom_toBottomOf="@+id/title_text_view"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/title_text_view" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/films_recycler_view"
             style="@style/films_recycler_view"
@@ -37,7 +22,7 @@
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_text_view"
+            app:layout_constraintTop_toTopOf="parent"
             tools:itemCount="4"
             tools:listitem="@layout/film_card_layout" />
 

@@ -12,4 +12,5 @@
 
     <!--  Actions  -->
     <string name="action_repeat">Повторить</string>
+    <string name="action_search">Поиск</string>
 </resources>

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -34,8 +35,8 @@ class AboutFragment :
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        hideActionBar()
         (activity?.applicationContext as FilmsApplication).appComponent.inject(this)
-        activity?.let { WindowCompat.setDecorFitsSystemWindows(it.window, false) }
         viewModel = ViewModelProvider(this, viewModelFactory)[AboutViewModel::class.java]
         _binding = FragmentAboutBinding.inflate(inflater, container, false)
         arguments?.let {
@@ -61,7 +62,17 @@ class AboutFragment :
 
     override fun onDestroyView() {
         super.onDestroyView()
-        activity?.let { WindowCompat.setDecorFitsSystemWindows(it.window, true) }
+        showActionBar()
+    }
+
+    private fun hideActionBar() {
+//        activity?.let { WindowCompat.setDecorFitsSystemWindows(it.window, false) }
+        (activity as AppCompatActivity).supportActionBar?.hide()
+    }
+
+    private fun showActionBar() {
+//        activity?.let { WindowCompat.setDecorFitsSystemWindows(it.window, true) }
+        (activity as AppCompatActivity).supportActionBar?.show()
     }
 
     private fun bind(film: Film) {

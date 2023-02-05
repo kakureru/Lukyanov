@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.lukyanovtinkoff.R
@@ -29,6 +30,7 @@ class FavouritesFragment :
         (activity?.applicationContext as FilmsApplication).appComponent.inject(this)
         viewModel = ViewModelProvider(this, viewModelFactory)[FavouritesViewModel::class.java]
         _binding = FragmentFavouritesBinding.inflate(inflater, container, false)
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.favourites)
         return binding.root
     }
 

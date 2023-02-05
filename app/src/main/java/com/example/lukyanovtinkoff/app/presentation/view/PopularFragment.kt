@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -33,6 +34,7 @@ class PopularFragment :
         (activity?.applicationContext as FilmsApplication).appComponent.inject(this)
         viewModel = ViewModelProvider(this, viewModelFactory)[PopularViewModel::class.java]
         _binding = FragmentPopularBinding.inflate(inflater, container, false)
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.popular)
         return binding.root
     }
 
