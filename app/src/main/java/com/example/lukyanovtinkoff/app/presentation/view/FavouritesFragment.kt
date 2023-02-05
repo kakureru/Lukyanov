@@ -1,6 +1,7 @@
 package com.example.lukyanovtinkoff.app.presentation.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -33,7 +34,7 @@ class FavouritesFragment :
         viewModel = ViewModelProvider(this, viewModelFactory)[FavouritesViewModel::class.java]
         _binding = FragmentFavouritesBinding.inflate(inflater, container, false)
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.favourites)
-//        (requireActivity() as MenuHost).addMenuProvider(menuProvider, viewLifecycleOwner)
+        (requireActivity() as MenuHost).addMenuProvider(menuProvider, viewLifecycleOwner)
         return binding.root
     }
 
@@ -48,7 +49,8 @@ class FavouritesFragment :
         binding.filmsRecyclerView.adapter = filmAdapter
 
         viewModel.favouriteFilms.observe(viewLifecycleOwner) {
-            filmAdapter.submitList(it)
+            filmAdapter.addData(it)
+//            filmAdapter.submitList(it)
         }
     }
 

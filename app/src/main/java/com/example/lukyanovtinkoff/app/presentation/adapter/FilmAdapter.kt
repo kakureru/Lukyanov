@@ -80,7 +80,6 @@ class FilmAdapter(
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val charString = constraint?.toString() ?: ""
-                Log.d("TAG", charString)
                 filmListFiltered =
                     if (charString.isEmpty())
                         filmList
@@ -95,11 +94,6 @@ class FilmAdapter(
             }
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                filmListFiltered =
-                    if (results?.values == null)
-                        ArrayList()
-                    else
-                        results.values as ArrayList<Film>
                 submitList(filmListFiltered)
             }
         }

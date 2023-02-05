@@ -1,6 +1,7 @@
 package com.example.lukyanovtinkoff.app.presentation.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -34,7 +35,7 @@ class PopularFragment :
         viewModel = ViewModelProvider(this, viewModelFactory)[PopularViewModel::class.java]
         _binding = FragmentPopularBinding.inflate(inflater, container, false)
         (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.popular)
-//        (requireActivity() as MenuHost).addMenuProvider(menuProvider, viewLifecycleOwner)
+        (requireActivity() as MenuHost).addMenuProvider(menuProvider, viewLifecycleOwner)
         return binding.root
     }
 
@@ -55,7 +56,8 @@ class PopularFragment :
             onError = { Toast.makeText(requireContext(), it, Toast.LENGTH_LONG).show() },
             onSuccess = {
                 filmAdapter.addData(it)
-                filmAdapter.submitList(it)
+
+//                filmAdapter.submitList(it)
             },
             state = {
                 binding.apply {
