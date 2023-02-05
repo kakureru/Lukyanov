@@ -4,7 +4,8 @@ import com.example.lukyanovtinkoff.domain.model.Film
 import com.google.gson.annotations.SerializedName
 
 data class FilmResponse(
-    @SerializedName("filmId") val id: Int,
+    @SerializedName("filmId") val filmId: Int,
+    @SerializedName("kinopoiskId") val kinopoiskId: Int,
     @SerializedName("nameRu") val name: String,
     @SerializedName("posterUrl") val posterUrl: String,
     @SerializedName("posterUrlPreview") val posterUrlPreview: String,
@@ -15,7 +16,7 @@ data class FilmResponse(
 )
 
 fun FilmResponse.toDomain() = Film(
-    id = id,
+    id = if (filmId > 0) filmId else kinopoiskId,
     name = name,
     posterUrl = posterUrl,
     posterUrlPreview = posterUrlPreview,

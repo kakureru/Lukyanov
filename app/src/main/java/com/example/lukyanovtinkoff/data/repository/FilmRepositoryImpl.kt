@@ -30,7 +30,15 @@ class FilmRepositoryImpl(
     }
 
     override suspend fun saveFilm(film: Film) {
+        // First save film without description
         filmsDao.saveFilm(toData(film))
+        // Then load description and save it again
+        getFilm(filmId = film.id).collect {
+            when (it) {
+                is Either.Left -> {}
+                is Either.Right -> filmsDao.saveFilm(toData(it.value))
+            }
+        }
     }
 
     private fun toData(film: Film) = FilmEntity(

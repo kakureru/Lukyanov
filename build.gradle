@@ -11,6 +11,7 @@ buildscript {
         constraintlayout_version = "2.1.4"
         fragment_version = "1.5.5"
         material_version = "1.8.0"
+        glide_version = "4.14.2"
         // Testing
         junit_version = '4.13.2'
         core_testing_version = '2.1.0'
