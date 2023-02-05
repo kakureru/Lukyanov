@@ -41,7 +41,7 @@ class FilmRepositoryImpl(
         // First save film without description
         filmsDao.saveFilm(toData(film))
         // Then load description and save it again
-        getFilm(filmId = film.id).collect {
+        doRequest { filmsApi.getFilm(filmId = film.id).toDomain() }.collect {
             when (it) {
                 is Either.Left -> {}
                 is Either.Right -> filmsDao.saveFilm(toData(it.value))
